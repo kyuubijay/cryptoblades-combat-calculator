@@ -1,8 +1,6 @@
 {
     "name": "Crytoblades Combat Calculator",
-    "action": {
-      "default_popup": "popup.html"
-    },
+    "action": {},
     "manifest_version": 3,
     "version": "0.1",
     "description": "Combat Calculator for Cryptoblades",
