@@ -28,4 +28,4 @@ Chrome extension version of Crypto Blades - Combat Simulator(https://wax-dapps.s
 <i>Work in progress</i>
 <br/>
 <br/>
-<sub>Accepting BNB donation(BEP20): 0x280faC63ca8C3de552fef5c75e2cDC0572dFc0Fd</sub>
+<sub>Accepting BNB donation(BEP20): 0xf9cc95373bdcf5a2dc27800490c2566d01c0400c</sub>
