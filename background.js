@@ -22,6 +22,19 @@ function start() {
       return (t = Math.ceil(t)), (a = Math.floor(a)), Math.floor(Math.random() * (a - t + 1)) + t;
   }
 
+  function getWeaponTrait(weapon_desc) {
+    switch(weapon_desc) {
+      case 'dex': weap_trait = 0; break;
+      case 'cha': weap_trait = 1; break;
+      case 'int': weap_trait = 2; break;
+      case 'str': weap_trait = 3; break;
+      case 'pwr': weap_trait = 4; break;
+      default: weap_trait = 0; break;
+    }
+
+    return weap_trait
+  }
+
     //GET HERO DETAILS
     hero_power = document.getElementsByClassName('subtext subtext-stats')[0].innerText.split(': ')[1]
     hero_power = hero_power.replace(',','')
@@ -39,28 +52,22 @@ function start() {
     //GET WEAPON DETAILS
     weapon_trait = 0
     weapon_bonus_power = 0
-    weapon_stat_string = document.getElementsByClassName('stats')[0].innerText.toLowerCase()
+    weapon_stat_string = document.getElementsByClassName('stats')[0].innerText.toLowerCase().split('\n')
     weapon_trait_string = document.getElementsByClassName('trait')[0].children[0].className.replace('-icon','').toLowerCase()
 
     
     
-    weapon_stat_1_string = weapon_stat_string.split(' ')[0]
-    weapon_stat_1_trait = 0
-    weapon_stat_2_trait = 0
-    weapon_stat_3_trait = 0
+    weapon_stat_1_string = weapon_stat_string.length >= 1 ? weapon_stat_string[0].split(' ')[0] : 0
+    weapon_stat_2_string = weapon_stat_string.length >= 2 ? weapon_stat_string[1].split(' ')[0] : 0
+    weapon_stat_3_string = weapon_stat_string.length >= 3 ? weapon_stat_string[2].split(' ')[0] : 0
 
-    weapon_stat_1_power = parseInt(weapon_stat_string.split(' ')[1])
-    weapon_stat_2_power = 0
-    weapon_stat_3_power = 0
+    weapon_stat_1_power = weapon_stat_string.length >= 1 ? parseInt(weapon_stat_string[0].split(' ')[1]) : 0
+    weapon_stat_2_power = weapon_stat_string.length >= 2 ? parseInt(weapon_stat_string[1].split(' ')[1]) : 0
+    weapon_stat_3_power = weapon_stat_string.length >= 3 ? parseInt(weapon_stat_string[2].split(' ')[1]) : 0
 
-    switch(weapon_stat_1_string) {
-      case 'dex': weapon_stat_1_trait = 0; break;
-      case 'cha': weapon_stat_1_trait = 1; break;
-      case 'int': weapon_stat_1_trait = 2; break;
-      case 'str': weapon_stat_1_trait = 3; break;
-      case 'pwr': weapon_stat_1_trait = 4; break;
-      default: weapon_stat_1_trait = 0; break;
-    }
+    weapon_stat_1_trait = getWeaponTrait(weapon_stat_1_string)
+    weapon_stat_2_trait = getWeaponTrait(weapon_stat_2_string)
+    weapon_stat_3_trait = getWeaponTrait(weapon_stat_3_string)
 
     switch(weapon_trait_string) {
       case 'earth': weapon_trait = 0; break;
@@ -75,10 +82,10 @@ function start() {
     enemies1 = document.getElementsByClassName('encounter-container')
     enemies = []
     for(var i = 0; i < enemies1.length; i++) {
-        enemy_element_string = enemies1[i].getElementsByClassName('encounter-element')[0].innerText.toLowerCase()
+        enemy_element_string = enemies1[i].getElementsByClassName('encounter-element')[0].children[0].className.toLowerCase().replace('-icon','')
         enemy_power = enemies1[i].getElementsByClassName('encounter-power')[0].innerText.split(' ')[0]
         enemy_element = 0
-
+      console.log('enemy'+i,enemy_element_string)
       switch(enemy_element_string) {
         case 'earth': enemy_element = 0; break;
         case 'lightning': enemy_element = 1; break;
@@ -89,6 +96,27 @@ function start() {
 
         enemies.push({'element': enemy_element, 'power': enemy_power})
     }
+
+    console.log('hero_trait', hero_trait)
+    console.log('hero_power', hero_power)
+    console.log('weapon_trait',weapon_trait)
+    console.log('weapon_stat_1_trait',weapon_stat_1_trait)
+    console.log('weapon_stat_1_power',weapon_stat_1_power)
+    console.log('weapon_stat_2_trait',weapon_stat_2_trait)
+    console.log('weapon_stat_2_power',weapon_stat_2_power)
+    console.log('weapon_stat_3_trait',weapon_stat_3_trait)
+    console.log('weapon_stat_3_power',weapon_stat_3_power)
+    for(var ii=0; ii<enemies.length; ii++) {
+      console.log('enemy'+(ii+1)+' element',enemies[ii].element)
+      console.log('enemy'+(ii+1)+' power',enemies[ii].power)
+    }
+    
+    // console.log('',)
+    // console.log('',)
+    // console.log('',)
+    // console.log('',)
+    // console.log('',)
+    // console.log('',)
 
     try {
       let e = hero_trait,
@@ -139,9 +167,9 @@ function start() {
               (m = a(W, P) * O), (b = a(x, M)), m >= b && j++, (m = a(C, L) * S), (b = a(F, E)), m >= b && q++, (m = a(H, N) * U), (b = a(R, B)), m >= b && z++, (m = a(G, J) * _), (b = a(D, A)), m >= b && K++;
           chances = [j, q, z, K]
           for(var tt = 0; tt < enemies1.length; tt++) {
-            chance_text = enemies1[tt].getElementsByClassName('victory-chance')[0].innerText.split('(')[0].trim()
+            // chance_text = enemies1[tt].getElementsByClassName('victory-chance')[0].innerText.split('(')[0].trim()
             chance = ((chances[tt] / 500) * 100).toFixed(2) + " %"
-            enemies1[tt].getElementsByClassName('victory-chance')[0].innerText = chance_text + ' (' + chance + ')'
+            enemies1[tt].getElementsByClassName('victory-chance')[0].innerText = chance
           }
       })(
           parseFloat(hero_power),
@@ -166,6 +194,9 @@ function start() {
     } catch (t) {
         console.log('Warning: Error in parsing inputs, all stats and powers must be defined.')
     }
+
+
+    
   }
   
   chrome.action.onClicked.addListener((tab) => {

@@ -2,12 +2,17 @@
     "name": "Crytoblades Combat Calculator",
     "action": {},
     "manifest_version": 3,
-    "version": "0.1",
+    "version": "0.1.1",
     "description": "Combat Calculator for Cryptoblades",
     "permissions": [
       "activeTab",
       "scripting"
     ],
+    "icons" : {
+      "16": "16.png",
+      "48": "48.png",
+      "128": "128.png"
+    },
     "background": {
       "service_worker": "background.js"
     }
