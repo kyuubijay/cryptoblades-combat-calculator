@@ -1,6 +1,8 @@
 # cryptoblades-combat-calculator
 <b>About</b><br/>
 
+<b>[UNOFFICIAL] USE AT YOUR OWN RISK</b>
+<br/>
 Chrome extension version of Crypto Blades - Combat Simulator(https://wax-dapps.site/crypto-blades/combat)
 
 <b>How to install</b><br/>
@@ -21,4 +23,9 @@ Chrome extension version of Crypto Blades - Combat Simulator(https://wax-dapps.s
 
 <br/>
 ---
+<br/>
+<br/>
 <i>Work in progress</i>
+<br/>
+<br/>
+<sub>Accepting BNB donation(BEP20): 0xf9cc95373bdcf5a2dc27800490c2566d01c0400c</sub>
