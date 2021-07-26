@@ -52,30 +52,37 @@ function start() {
     //GET WEAPON DETAILS
     weapon_trait = 0
     weapon_bonus_power = 0
-    weapon_stat_string = document.getElementsByClassName('stats')[0].innerText.toLowerCase().split('\n')
-    weapon_trait_string = document.getElementsByClassName('trait')[0].children[0].className.replace('-icon','').toLowerCase()
+    weapon_stat_string = document.getElementsByClassName('stats')[0]
+    weapon_stat_1_trait = 0
+    weapon_stat_2_trait = 0
+    weapon_stat_3_trait = 0
 
-    
-    
-    weapon_stat_1_string = weapon_stat_string.length >= 1 ? weapon_stat_string[0].split(' ')[0] : 0
-    weapon_stat_2_string = weapon_stat_string.length >= 2 ? weapon_stat_string[1].split(' ')[0] : 0
-    weapon_stat_3_string = weapon_stat_string.length >= 3 ? weapon_stat_string[2].split(' ')[0] : 0
+    weapon_stat_1_power = 0
+    weapon_stat_2_power = 0
+    weapon_stat_3_power = 0
+    if(weapon_stat_string != undefined) {
+      weapon_stat_string = weapon_stat_string.innerText.toLowerCase().split('\n')
+      weapon_trait_string = document.getElementsByClassName('trait')[0].children[0].className.replace('-icon','').toLowerCase()
+      weapon_stat_1_string = weapon_stat_string.length >= 1 ? weapon_stat_string[0].split(' ')[0] : 0
+      weapon_stat_2_string = weapon_stat_string.length >= 2 ? weapon_stat_string[1].split(' ')[0] : 0
+      weapon_stat_3_string = weapon_stat_string.length >= 3 ? weapon_stat_string[2].split(' ')[0] : 0
 
-    weapon_stat_1_power = weapon_stat_string.length >= 1 ? parseInt(weapon_stat_string[0].split(' ')[1]) : 0
-    weapon_stat_2_power = weapon_stat_string.length >= 2 ? parseInt(weapon_stat_string[1].split(' ')[1]) : 0
-    weapon_stat_3_power = weapon_stat_string.length >= 3 ? parseInt(weapon_stat_string[2].split(' ')[1]) : 0
+      weapon_stat_1_power = weapon_stat_string.length >= 1 ? parseInt(weapon_stat_string[0].split(' ')[1]) : 0
+      weapon_stat_2_power = weapon_stat_string.length >= 2 ? parseInt(weapon_stat_string[1].split(' ')[1]) : 0
+      weapon_stat_3_power = weapon_stat_string.length >= 3 ? parseInt(weapon_stat_string[2].split(' ')[1]) : 0
 
-    weapon_stat_1_trait = getWeaponTrait(weapon_stat_1_string)
-    weapon_stat_2_trait = getWeaponTrait(weapon_stat_2_string)
-    weapon_stat_3_trait = getWeaponTrait(weapon_stat_3_string)
+      weapon_stat_1_trait = getWeaponTrait(weapon_stat_1_string)
+      weapon_stat_2_trait = getWeaponTrait(weapon_stat_2_string)
+      weapon_stat_3_trait = getWeaponTrait(weapon_stat_3_string)
 
-    switch(weapon_trait_string) {
-      case 'earth': weapon_trait = 0; break;
-      case 'lightning': weapon_trait = 1; break;
-      case 'water': weapon_trait = 2; break;
-      case 'fire': weapon_trait = 3; break;
-      case 'power': weapon_trait = 4; break;
-      default: weapon_trait = 0; break;
+      switch(weapon_trait_string) {
+        case 'earth': weapon_trait = 0; break;
+        case 'lightning': weapon_trait = 1; break;
+        case 'water': weapon_trait = 2; break;
+        case 'fire': weapon_trait = 3; break;
+        case 'power': weapon_trait = 4; break;
+        default: weapon_trait = 0; break;
+      }
     }
 
     //GET ENEMIES' DETAILS
@@ -110,13 +117,6 @@ function start() {
       console.log('enemy'+(ii+1)+' element',enemies[ii].element)
       console.log('enemy'+(ii+1)+' power',enemies[ii].power)
     }
-    
-    // console.log('',)
-    // console.log('',)
-    // console.log('',)
-    // console.log('',)
-    // console.log('',)
-    // console.log('',)
 
     try {
       let e = hero_trait,
@@ -196,7 +196,23 @@ function start() {
     }
 
 
-    
+    ////////////////////GET CHARACTER XP NEEDED FOR NEXT LEVEL////////////////////////
+    xp = [16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 33, 36, 39, 42, 46, 50, 55, 60, 66, 72, 79, 86, 94, 103, 113, 124, 136, 149, 163, 178, 194, 211, 229, 248, 268, 289, 311, 334, 358, 383, 409, 436, 464, 493, 523, 554, 586, 619, 653, 688, 724, 761, 799, 838, 878, 919, 961, 1004, 1048, 1093, 1139, 1186, 1234, 1283, 1333, 1384, 1436, 1489, 1543, 1598, 1634, 1711, 1769, 1828, 1888, 1949, 2011, 2074, 2138, 2203, 2269, 2336, 2404, 2473, 2543, 2614, 2686, 2759, 2833, 2908, 2984, 3061, 3139, 3218, 3298, 3379, 3461, 3344, 3628, 3713, 3799, 3886, 3974, 4063, 4153, 4244, 4336, 4429, 4523, 4618, 4714, 4811, 4909, 5008, 5108, 5209, 5311, 5414, 5518, 5623, 5729, 5836, 5944, 6053, 6163, 6274, 6386, 6499, 6613, 6728, 6844, 6961, 7079, 7198, 7318, 7439, 7561, 7684, 7808, 7933, 8059, 8186, 8314, 8443, 8573, 8704, 8836, 8969, 9103, 9238, 9374, 9511, 9649, 9788, 9928, 10069, 10211, 10354, 10498, 10643, 10789, 10936, 11084, 11233, 11383, 11534, 11686, 11839, 11993, 12148, 12304, 12461, 12619, 12778, 12938, 13099, 13261, 13424, 13588, 13753, 13919, 14086, 14254, 14423, 14593, 14764, 14936, 15109, 15283, 15458, 15634, 15811, 15989, 16168, 16348, 16529, 16711, 16894, 17078, 17263, 17449, 17636, 17824, 18013, 18203, 18394, 18586, 18779, 18973, 19168, 19364, 19561, 19759, 19958, 20158, 20359, 20561, 20764, 20968, 21173, 21379, 21586, 21794, 22003, 22213, 22424, 22636, 22849, 23063, 23278, 23494, 23711, 23929, 24148, 24368, 24589, 24811, 25034, 25258, 25483, 25709, 25936, 26164, 26393, 26623, 26854, 27086, 27319, 27553, 27788, 28024, 28261, 28499, 28738, 28978]
+   
+    names = document.getElementsByClassName('name-list')
+    for(var n = 0; n < names.length; n++) {
+      needed_xp = 0
+      name_with_level = names[n].innerText
+      orig_name_with_level = names[n].innerHTML
+      names[n].innerHTML = orig_name_with_level.substring(0, orig_name_with_level.indexOf('Lv.') + 5)
+      index_of_level = name_with_level.indexOf('Lv.')
+      char_level = parseInt(name_with_level.substring(index_of_level + 3, name_with_level.length))
+      next_level = Math.ceil(char_level / 10) * 10 + 1;
+      for(iii=char_level-1;iii<next_level-1;iii++) {
+        needed_xp += xp[iii]
+      }
+      names[n].innerHTML+='<br/><i>Need ~' + needed_xp + 'xp to Lv.' + next_level + '</i>'
+    }
   }
   
   chrome.action.onClicked.addListener((tab) => {
